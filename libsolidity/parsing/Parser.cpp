@@ -1092,6 +1092,9 @@ ASTPointer<Block> Parser::parseBlock(ASTPointer<ASTString> const& _docString)
 {
 	RecursionGuard recursionGuard(*this);
 	ASTNodeFactory nodeFactory(*this);
+	bool const unchecked = m_scanner->currentToken() == Token::Unchecked;
+	if (unchecked)
+		m_scanner->next();
 	expectToken(Token::LBrace);
 	vector<ASTPointer<Statement>> statements;
 	try
@@ -1114,7 +1117,7 @@ ASTPointer<Block> Parser::parseBlock(ASTPointer<ASTString> const& _docString)
 		expectTokenOrConsumeUntil(Token::RBrace, "Block");
 	else
 		expectToken(Token::RBrace);
-	return nodeFactory.createNode<Block>(_docString, statements);
+	return nodeFactory.createNode<Block>(_docString, unchecked, statements);
 }
 
 ASTPointer<Statement> Parser::parseStatement()
@@ -1136,9 +1139,9 @@ ASTPointer<Statement> Parser::parseStatement()
 			return parseDoWhileStatement(docString);
 		case Token::For:
 			return parseForStatement(docString);
+		case Token::Unchecked:
 		case Token::LBrace:
 			return parseBlock(docString);
-			// starting from here, all statements must be terminated by a semicolon
 		case Token::Continue:
 			statement = ASTNodeFactory(*this).createNode<Continue>(docString);
 			m_scanner->next();

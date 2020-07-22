@@ -588,7 +588,8 @@ bool ASTJsonConverter::visit(InlineAssembly const& _node)
 bool ASTJsonConverter::visit(Block const& _node)
 {
 	setJsonNode(_node, "Block", {
-		make_pair("statements", toJson(_node.statements()))
+		make_pair("statements", toJson(_node.statements())),
+		make_pair("unchecked", _node.unchecked())
 	});
 	return false;
 }

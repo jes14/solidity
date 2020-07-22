@@ -2690,14 +2690,13 @@ std::string YulUtilFunctions::decrementCheckedFunction(Type const& _type)
 		return Whiskers(R"(
 			function <functionName>(value) -> ret {
 				value := <cleanupFunction>(value)
-				if <lt>(value, <minval>) { <panic>() }
+				if eq(value, <minval>) { <panic>() }
 				ret := sub(value, 1)
 			}
 		)")
 		("functionName", functionName)
 		("panic", panicFunction())
 		("minval", toCompactHexWithPrefix(minintval))
-		("lt", type.isSigned() ? "slt" : "lt")
 		("cleanupFunction", cleanupFunction(_type))
 		.render();
 	});
@@ -2721,13 +2720,12 @@ std::string YulUtilFunctions::incrementCheckedFunction(Type const& _type)
 		return Whiskers(R"(
 			function <functionName>(value) -> ret {
 				value := <cleanupFunction>(value)
-				if <gt>(value, <maxval>) { <panic>() }
+				if eq(value, <maxval>) { <panic>() }
 				ret := add(value, 1)
 			}
 		)")
 		("functionName", functionName)
 		("maxval", toCompactHexWithPrefix(maxintval))
-		("gt", type.isSigned() ? "sgt" : "gt")
 		("panic", panicFunction())
 		("cleanupFunction", cleanupFunction(_type))
 		.render();

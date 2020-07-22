@@ -122,6 +122,10 @@ public:
 	void setMostDerivedContract(ContractDefinition const& _contract) { m_mostDerivedContract = &_contract; }
 	ContractDefinition const& mostDerivedContract() const;
 
+	void pushArithmetic(Arithmetic _value) { m_arithmetic.push(_value); }
+	void popArithmetic() { m_arithmetic.pop(); }
+	Arithmetic arithmetic() const { return m_arithmetic.empty() ? Arithmetic::Checked : m_arithmetic.top(); }
+
 	/// @returns the next function in the queue of functions that are still to be compiled
 	/// (i.e. that were referenced during compilation but where we did not yet generate code for).
 	/// Returns nullptr if the queue is empty. Does not remove the function from the queue,
@@ -379,6 +383,8 @@ private:
 	std::map<Declaration const*, std::vector<unsigned>> m_localVariables;
 	/// The contract currently being compiled. Virtual function lookup starts from this contarct.
 	ContractDefinition const* m_mostDerivedContract = nullptr;
+	/// Whether to use checked arithmetic.
+	std::stack<Arithmetic> m_arithmetic;
 	/// Stack of current visited AST nodes, used for location attachment
 	std::stack<ASTNode const*> m_visitedNodes;
 	/// The runtime context if in Creation mode, this is used for generating tags that would be stored into the storage and then used at runtime.

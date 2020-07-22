@@ -586,6 +586,7 @@ ASTPointer<Block> ASTJsonImporter::createBlock(Json::Value const& _node)
 	return createASTNode<Block>(
 		_node,
 		nullOrASTString(_node, "documentation"),
+		member(_node, "unchecked") && memberAsBool(_node, "unchecked"),
 		statements
 	);
 }
