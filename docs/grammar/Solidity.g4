@@ -370,8 +370,11 @@ numberLiteral: (DecimalNumber | HexNumber) NumberUnit?;
  */
 block: LBrace statement* RBrace;
 
+uncheckedBlock: Unchecked block;
+
 statement:
 	block
+	| uncheckedBlock
 	| simpleStatement
 	| ifStatement
 	| forStatement
