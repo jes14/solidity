@@ -132,6 +132,10 @@ public:
 
 	langutil::EVMVersion evmVersion() const { return m_evmVersion; };
 
+	void pushArithmetic(Arithmetic _value) { m_arithmetic.push(_value); }
+	void popArithmetic() { m_arithmetic.pop(); }
+	Arithmetic arithmetic() const { return m_arithmetic.empty() ? Arithmetic::Checked : m_arithmetic.top(); }
+
 	ABIFunctions abiFunctions();
 
 	/// @returns code that stores @param _message for revert reason
@@ -161,6 +165,8 @@ private:
 	std::map<VariableDeclaration const*, std::pair<u256, unsigned>> m_stateVariables;
 	MultiUseYulFunctionCollector m_functions;
 	size_t m_varCounter = 0;
+	/// Whether to use checked or wrapping arithmetic.
+	std::stack<Arithmetic> m_arithmetic;
 
 	/// Flag indicating whether any inline assembly block was seen.
 	bool m_inlineAssemblySeen = false;

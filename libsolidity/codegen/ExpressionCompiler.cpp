@@ -2135,7 +2135,7 @@ void ExpressionCompiler::appendArithmeticOperatorCode(Token _operator, Type cons
 			functionName = m_context.utilFunctions().overflowCheckedIntDivFunction(type);
 			break;
 		case Token::Mod:
-			functionName = m_context.utilFunctions().checkedIntModFunction(type);
+			functionName = m_context.utilFunctions().intModFunction(type);
 			break;
 		case Token::Exp:
 			// EXP is handled in a different function.

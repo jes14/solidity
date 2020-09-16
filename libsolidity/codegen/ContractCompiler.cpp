@@ -1331,7 +1331,6 @@ void ContractCompiler::appendModifierOrFunctionCode()
 	if (codeBlock)
 	{
 		m_context.pushArithmetic(Arithmetic::Checked);
-		// TODO test that checks are also applied for initializing state variables
 
 		m_returnTags.emplace_back(m_context.newTag(), m_context.stackHeight());
 		codeBlock->accept(*this);
