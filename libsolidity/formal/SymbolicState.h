@@ -97,7 +97,6 @@ public:
 	smtutil::Expression thisAddress() { return m_thisAddress.currentValue(); }
 	smtutil::Expression thisAddress(unsigned _idx) { return m_thisAddress.valueAtIndex(_idx); }
 	smtutil::SortPointer thisAddressSort() { return m_thisAddress.sort(); }
-	//@}
 
 	/// Blockchain state.
 	//@{
