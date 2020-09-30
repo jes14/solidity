@@ -1,6 +1,7 @@
 ### 0.8.0 (unreleased)
 
 Breaking Changes:
+ * Code Generator: All arithmetic is checked by default. These checks can be disabled using ``unchecked { ... }``.
  * Type System: Unary negation can only be used on signed integers, not on unsigned integers.
  * Type System: Disallow explicit conversions from negative literals and literals larger than ``type(uint160).max`` to ``address`` type.
 
