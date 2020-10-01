@@ -1088,19 +1088,23 @@ ASTPointer<ParameterList> Parser::parseParameterList(
 	return nodeFactory.createNode<ParameterList>(parameters);
 }
 
-ASTPointer<Block> Parser::parseBlock(ASTPointer<ASTString> const& _docString)
+ASTPointer<Block> Parser::parseBlock(bool _allowUnchecked, ASTPointer<ASTString> const& _docString)
 {
 	RecursionGuard recursionGuard(*this);
 	ASTNodeFactory nodeFactory(*this);
 	bool const unchecked = m_scanner->currentToken() == Token::Unchecked;
 	if (unchecked)
+	{
+		if (!_allowUnchecked)
+			parserError(5296_error, "\"unchecked\" blocks can only be used inside regular blocks.");
 		m_scanner->next();
+	}
 	expectToken(Token::LBrace);
 	vector<ASTPointer<Statement>> statements;
 	try
 	{
 		while (m_scanner->currentToken() != Token::RBrace)
-			statements.push_back(parseStatement());
+			statements.push_back(parseStatement(true));
 		nodeFactory.markEndPosition();
 	}
 	catch (FatalError const&)
@@ -1120,7 +1124,7 @@ ASTPointer<Block> Parser::parseBlock(ASTPointer<ASTString> const& _docString)
 	return nodeFactory.createNode<Block>(_docString, unchecked, statements);
 }
 
-ASTPointer<Statement> Parser::parseStatement()
+ASTPointer<Statement> Parser::parseStatement(bool _allowUnchecked)
 {
 	RecursionGuard recursionGuard(*this);
 	ASTPointer<ASTString> docString;
@@ -1141,7 +1145,7 @@ ASTPointer<Statement> Parser::parseStatement()
 			return parseForStatement(docString);
 		case Token::Unchecked:
 		case Token::LBrace:
-			return parseBlock(docString);
+			return parseBlock(_allowUnchecked, docString);
 		case Token::Continue:
 			statement = ASTNodeFactory(*this).createNode<Continue>(docString);
 			m_scanner->next();
