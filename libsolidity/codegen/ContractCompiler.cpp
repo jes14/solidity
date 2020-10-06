@@ -1281,6 +1281,7 @@ void ContractCompiler::appendModifierOrFunctionCode()
 	unsigned stackSurplus = 0;
 	Block const* codeBlock = nullptr;
 	vector<VariableDeclaration const*> addedVariables;
+	std::optional<std::set<ExperimentalFeature>> experimentalFeaturesInside;
 
 	m_modifierDepth++;
 	m_context.setModifierDepth(m_modifierDepth);
@@ -1289,6 +1290,7 @@ void ContractCompiler::appendModifierOrFunctionCode()
 	{
 		solAssert(m_currentFunction->isImplemented(), "");
 		codeBlock = &m_currentFunction->body();
+		experimentalFeaturesInside = m_currentFunction->sourceUnit().annotation().experimentalFeatures;
 	}
 	else
 	{
@@ -1321,13 +1323,21 @@ void ContractCompiler::appendModifierOrFunctionCode()
 
 			stackSurplus = CompilerUtils::sizeOnStack(modifier.parameters());
 			codeBlock = &modifier.body();
+			experimentalFeaturesInside = modifier.sourceUnit().annotation().experimentalFeatures;
 		}
 	}
 
 	if (codeBlock)
 	{
+		std::set<ExperimentalFeature> experimentalFeaturesOutside = m_context.experimentalFeaturesActive();
+		solAssert(experimentalFeaturesInside.has_value(), "experimentalFeaturesInside not initialized");
+		m_context.setExperimentalFeatures(experimentalFeaturesInside.value());
+
 		m_returnTags.emplace_back(m_context.newTag(), m_context.stackHeight());
 		codeBlock->accept(*this);
+
+		solAssert(m_context.experimentalFeaturesActive() == experimentalFeaturesInside.value(), "");
+		m_context.setExperimentalFeatures(experimentalFeaturesOutside);
 
 		solAssert(!m_returnTags.empty(), "");
 		m_context << m_returnTags.back().first;

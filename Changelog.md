@@ -8,6 +8,7 @@ Compiler Features:
 
 
 Bugfixes:
+ * Code generator: Fix ``ABIEncoderV2`` pragma from the current module affecting inherited functions and applied modifiers.
  * Type Checker: Fix internal compiler error caused by storage parameters with nested mappings in libraries.
  * Name Resolver: Fix shadowing/same-name warnings for later declarations.
 
