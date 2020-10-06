@@ -111,6 +111,13 @@ activate it using ``pragma experimental ABIEncoderV2;`` - we kept
 the same pragma, even though it is not considered experimental
 anymore.
 
+.. note::
+  This pragma applies to all the code defined in the file where it's activated,
+  regardless of where that code ends up eventually. This means that a contract
+  not explicitly using the new encoder can still contain code that uses it by
+  inheriting it from another contract. This is allowed if the new types are only
+  used internally and not in external function signatures.
+
 .. _smt_checker:
 
 SMTChecker
