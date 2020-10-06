@@ -427,6 +427,20 @@ private:
 	/// signature: (slot, offset)
 	std::string partialClearStorageSlotFunction();
 
+	/// @returns the name of a function that resizes a storage byte array
+	/// signature: (array, newLen)
+	std::string resizeDynamicByteArrayFunction(ArrayType const& _type);
+
+	/// @returns the name of a function that increases size of byte array
+	/// when we resize byte array from < 32 elements to >= 32 elements or we push to byte array of size 31 copying of data will  occur
+	/// signature: (array, oldLen, newLen)
+	std::string increaseByteArraySizeFunction(ArrayType const& _type);
+
+	/// @returns the name of a function that decreases size of byte array and that array becomes packed
+	/// when we resize byte array from >= 32 elements to < 32 elements or we pop from byte array of size 32 copying of data will  occur
+	/// signature: (array, oldLen, newLen)
+	std::string decreaseByteArraySizeToPackedFunction(ArrayType const& _type);
+
 	langutil::EVMVersion m_evmVersion;
 	RevertStrings m_revertStrings;
 	MultiUseYulFunctionCollector& m_functionCollector;
