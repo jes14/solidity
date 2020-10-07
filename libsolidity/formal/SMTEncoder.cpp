@@ -391,11 +391,20 @@ void SMTEncoder::endVisit(TupleExpression const& _tuple)
 	createExpr(_tuple);
 
 	if (_tuple.isInlineArray())
-		m_errorReporter.warning(
-			2177_error,
-			_tuple.location(),
-			"Assertion checker does not yet implement inline arrays."
-		);
+	{
+		createExpr(_tuple);
+
+		// Add constraints for the length and values as it is known.
+		auto symbArray = dynamic_pointer_cast<smt::SymbolicArrayVariable>(m_context.expression(_tuple));
+		solAssert(symbArray, "");
+
+		auto const& values = _tuple.components();
+		m_context.addAssertion(symbArray->length() == values.size());
+		for (size_t i = 0; i < values.size(); i++)
+			m_context.addAssertion(
+				smtutil::Expression::select(symbArray->elements(), i) == expr(*values[i])
+			);
+	}
 	else if (_tuple.components().size() == 1)
 		defineExpr(_tuple, expr(*_tuple.components().front()));
 	else
