@@ -62,7 +62,7 @@
  - [ ] Wait until solc-bin was properly deployed. You can test this via remix - a test run through remix is advisable anyway.
  - [ ] Increment the version number, create a pull request for that, merge it after tests succeeded.
  - [ ] Run ``npm publish`` in the updated ``solc-js`` repository.
- - [ ] Create the tag ``git tag v$VERSION`` and push it with ``git push --tags``.
+ - [ ] Create a tag using ``git tag --annotate v$VERSION`` and push it with ``git push --tags``.
 
 ### Post-release
  - [ ] Publish the blog post.
