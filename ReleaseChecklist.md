@@ -38,7 +38,7 @@
  - [ ] Make it executable.
  - [ ] Copy ``solc-macos`` from the release page to ``solc-bin/macos-amd64/solc-macos-amd64-v$VERSION+commit.$COMMIT``
  - [ ] Make it executable.
- - [ ] Copy ``solc-windows.zip`` from the release page to ``solc-bin/windows-amd64/solc-windows-amd64-v$VERSION+commit.$COMMIT.zip``
+ - [ ] Copy ``solc-windows.exe`` from the release page to ``solc-bin/windows-amd64/solc-windows-amd64-v$VERSION+commit.$COMMIT.exe``
  - [ ] Run ``./update --reuse-hashes`` in ``solc-bin`` and verify that the script has updated ``list.js``, ``list.txt`` and ``list.json`` files correctly and that symlinks to the new release have been added in ``solc-bin/wasm/`` and ``solc-bin/emscripten-wasm32/``.
  - [ ] Create a pull request and merge.
 
