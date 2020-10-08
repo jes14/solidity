@@ -36,7 +36,7 @@
  - [ ] Copy ``soljson.js`` to ``solc-bin/bin/soljson-v$VERSION+commit.$COMMIT.js``
  - [ ] Copy ``solc-static-linux`` from the release page to ``solc-bin/linux-amd64/solc-linux-amd64-v$VERSION+commit.$COMMIT``
  - [ ] Make it executable.
- - [ ] Copy ``solc-macos`` from the release page to ``solc-bin/macos-amd64/solc-macos-amd64-v$VERSION+commit.$COMMIT``
+ - [ ] Copy ``solc-macos`` from the release page to ``solc-bin/macosx-amd64/solc-macosx-amd64-v$VERSION+commit.$COMMIT``
  - [ ] Make it executable.
  - [ ] Copy ``solc-windows.exe`` from the release page to ``solc-bin/windows-amd64/solc-windows-amd64-v$VERSION+commit.$COMMIT.exe``
  - [ ] Run ``./update --reuse-hashes`` in ``solc-bin`` and verify that the script has updated ``list.js``, ``list.txt`` and ``list.json`` files correctly and that symlinks to the new release have been added in ``solc-bin/wasm/`` and ``solc-bin/emscripten-wasm32/``.
