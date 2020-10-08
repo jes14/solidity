@@ -174,6 +174,10 @@ public:
 	/// signature: (slot) ->
 	std::string clearStorageArrayFunction(ArrayType const& _type);
 
+	/// @returns the name of a function that will copy array from calldata or memory to storage
+	/// signature (slot, value) ->
+	std::string copyArrayToStorage(ArrayType const& _fromType, ArrayType const& _toType);
+
 	/// Returns the name of a function that will convert a given length to the
 	/// size in memory (number of storage slots or calldata/memory bytes) it
 	/// will require.
@@ -413,6 +417,13 @@ private:
 	/// @returns the name of a function that reduces the size of a storage byte array by one element
 	/// signature: (byteArray)
 	std::string storageByteArrayPopFunction(ArrayType const& _type);
+
+	/// @returns the name of a function that stores array length for dynamically sized storage arrays
+	/// signature: (storageArray, length)
+	std::string storeArrayLengthFunction(ArrayType const& _type);
+
+	std::string copyArrayFromCalldataToStorage(ArrayType const& _fromType, ArrayType const& _toType);
+	std::string copyArrayFromMemoryToStorage(ArrayType const& _fromType, ArrayType const& _toType);
 
 	std::string readFromMemoryOrCalldata(Type const& _type, bool _fromCalldata);
 
