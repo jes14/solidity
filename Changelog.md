@@ -31,13 +31,15 @@ Bugfixes:
  * JSON AST: Fix internal error when using ``--ast-json`` on a function with memory arguments in ABIEncoderV2 contracts.
  * Type Checker: Add missing checks for calls using types incompatible with ABIEncoderV1 in modules where ABIEncoderV2 is not enabled.
  * Type Checker: Fix internal compiler error when calling `.push(<arg>)` for a storage array with a nested mapping.
+ 
+Language features:
+* Code generator: Implementing copying arrays of structs to storage.
 
 
 ### 0.7.2 (2020-09-28)
 
 Important Bugfixes:
  * Type Checker: Disallow two or more free functions with identical name (potentially imported and aliased) and parameter types.
-
 
 Compiler Features:
  * Export compiler-generated utility sources via standard-json or combined-json.

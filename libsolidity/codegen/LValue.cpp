@@ -338,10 +338,35 @@ void StorageItem::storeValue(Type const& _sourceType, SourceLocation const& _loc
 		if (m_dataType->category() == Type::Category::Array)
 		{
 			m_context << Instruction::POP; // remove byte offset
-			ArrayUtils(m_context).copyArrayToStorage(
-				dynamic_cast<ArrayType const&>(*m_dataType),
-				dynamic_cast<ArrayType const&>(_sourceType)
-			);
+			auto const& sourceArrayType = dynamic_cast<ArrayType const&>(_sourceType);
+			if (
+				(sourceArrayType.baseType()->isDynamicallySized() || dynamic_cast<StructType const*>(sourceArrayType.baseType())) &&
+				sourceArrayType.location() != DataLocation::Storage
+			)
+			{
+				bool isDynamicFromCalldata =
+					sourceArrayType.location() == DataLocation::CallData &&
+					sourceArrayType.isDynamicallySized();
+				solAssert(_sourceType.sizeOnStack() == (isDynamicFromCalldata ? 2 : 1), "");
+				solAssert(m_dataType->sizeOnStack() == 1, "");
+
+				// stack: source_ref [source_length] target_ref
+				if (isDynamicFromCalldata)
+					m_context << Instruction::SWAP2 << Instruction::DUP3;
+				else
+					m_context << Instruction::SWAP1 << Instruction::DUP2;
+
+				m_context.callYulFunction(
+					m_context.utilFunctions().copyArrayToStorage(sourceArrayType, dynamic_cast<ArrayType const&>(*m_dataType)),
+					isDynamicFromCalldata ? 3 : 2,
+					0
+				);
+			}
+			else
+				ArrayUtils(m_context).copyArrayToStorage(
+					dynamic_cast<ArrayType const&>(*m_dataType),
+					dynamic_cast<ArrayType const&>(_sourceType)
+				);
 			if (_move)
 				m_context << Instruction::POP;
 		}

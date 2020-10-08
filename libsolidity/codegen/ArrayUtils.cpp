@@ -87,6 +87,7 @@ void ArrayUtils::copyArrayToStorage(ArrayType const& _targetType, ArrayType cons
 			ArrayUtils utils(_context);
 			ArrayType const& _sourceType = dynamic_cast<ArrayType const&>(*sourceType);
 			ArrayType const& _targetType = dynamic_cast<ArrayType const&>(*targetType);
+
 			// stack: target_ref source_ref source_length
 			_context << Instruction::DUP3;
 			// stack: target_ref source_ref source_length target_ref
@@ -225,7 +226,10 @@ void ArrayUtils::copyArrayToStorage(ArrayType const& _targetType, ArrayType cons
 				else if (sourceBaseType->isValueType())
 					CompilerUtils(_context).loadFromMemoryDynamic(*sourceBaseType, fromCalldata, true, false);
 				else
-					solUnimplemented("Copying of type " + _sourceType.toString(false) + " to storage not yet supported.");
+				{
+					// this should be implemented in a call to yul util function
+					solAssert(false, "");
+				}
 				// stack: target_ref target_data_end source_data_pos target_data_pos source_data_end [target_byte_offset] [source_byte_offset] <source_value>...
 				assertThrow(
 					2 + byteOffsetSize + sourceBaseType->sizeOnStack() <= 16,
