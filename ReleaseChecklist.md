@@ -43,8 +43,8 @@
  - [ ] Create a pull request and merge.
 
 ### Homebrew and MacOS
- - [ ] Update the version and the hash (``sha256sum solidity_x.x.x.tar.gz``) in https://github.com/Homebrew/homebrew-core/blob/master/Formula/solidity.rb
- - [ ] Update the version and the hash (``sha256sum solidity_x.x.x.tar.gz``) in https://github.com/ethereum/homebrew-ethereum/blob/master/solidity.rb
+ - [ ] Update the version and the hash (``sha256sum solidity_$VERSION.tar.gz``) in https://github.com/Homebrew/homebrew-core/blob/master/Formula/solidity.rb
+ - [ ] Update the version and the hash (``sha256sum solidity_$VERSION.tar.gz``) in https://github.com/ethereum/homebrew-ethereum/blob/master/solidity.rb
 
 ### Docker
  - [ ] Run ``./scripts/docker_deploy_manual.sh v$VERSION``).
