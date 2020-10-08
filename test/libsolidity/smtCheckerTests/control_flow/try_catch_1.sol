@@ -8,5 +8,6 @@ contract C {
 // ====
 // EVMVersion: >=byzantium
 // ----
+// Warning 6321: (75-79): Unnamed return parameter will never be set.
 // Warning 7645: (98-121): Assertion checker does not support try/catch clauses.
 // Warning 7645: (124-159): Assertion checker does not support try/catch clauses.

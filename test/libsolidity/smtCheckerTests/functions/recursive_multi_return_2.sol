@@ -25,3 +25,4 @@ a;
 // ----
 // Warning 6133: (72-90): Statement has no effect.
 // Warning 6133: (96-107): Statement has no effect.
+// Warning 6321: (163-167): Unnamed return parameter will never be set.

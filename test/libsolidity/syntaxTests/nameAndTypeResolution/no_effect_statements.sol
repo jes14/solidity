@@ -14,3 +14,4 @@ contract test {
 // Warning 6133: (108-112): Statement has no effect.
 // Warning 6133: (116-120): Statement has no effect.
 // Warning 6133: (124-131): Statement has no effect.
+// Warning 6321: (83-87): Unnamed return parameter will never be set.

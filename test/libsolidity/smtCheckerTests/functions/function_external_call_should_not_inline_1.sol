@@ -13,3 +13,4 @@ contract C {
 	}
 }
 // ----
+// Warning 6321: (85-89): Unnamed return parameter will never be set.

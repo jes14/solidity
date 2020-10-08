@@ -6,3 +6,5 @@ contract C {
         g.selector;
     }
 }
+// ----
+// Warning 6321: (51-57): Unnamed return parameter will never be set.

@@ -21,6 +21,7 @@ contract C {
 	}
 }
 // ----
+// Warning 6321: (253-260): Unnamed return parameter will never be set.
 // Warning 1218: (94-109): CHC: Error trying to invoke SMT solver.
 // Warning 1218: (113-126): CHC: Error trying to invoke SMT solver.
 // Warning 1218: (180-195): CHC: Error trying to invoke SMT solver.

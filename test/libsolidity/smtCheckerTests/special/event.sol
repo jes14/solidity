@@ -25,4 +25,6 @@ contract C {
 	}
 }
 // ----
+// Warning 6321: (280-284): Unnamed return parameter will never be set.
+// Warning 6321: (430-434): Unnamed return parameter will never be set.
 // Warning 6328: (440-449): CHC: Assertion violation happens here.

@@ -10,3 +10,5 @@ contract C {
   function h() internal pure returns (bytes memory, string storage s) { s = s; }
 }
 // ----
+// Warning 6321: (51-55): Unnamed return parameter will never be set.
+// Warning 6321: (250-262): Unnamed return parameter will never be set.

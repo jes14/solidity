@@ -5,3 +5,5 @@ contract C {
 		((((((, a)))),)) = ((1, 2), 3);
 	}
 }
+// ----
+// Warning 6321: (80-83): Unnamed return parameter will never be set.

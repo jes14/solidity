@@ -4,3 +4,5 @@ contract C {
     function h() public { h(); g(); f(); }
     function i() payable public { i(); h(); g(); f(); }
 }
+// ----
+// Warning 6321: (89-93): Unnamed return parameter will never be set.

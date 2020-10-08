@@ -1,5 +1,7 @@
 ### 0.7.4 (unreleased)
 
+Compiler Features:
+ * Static Analyzer: Print warning for non-empty functions with unnamed return parameters but no return statement.
 
 ### 0.7.3 (2020-10-07)
 

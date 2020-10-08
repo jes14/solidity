@@ -116,6 +116,7 @@ bool StaticAnalyzer::visit(FunctionDefinition const& _function)
 void StaticAnalyzer::endVisit(FunctionDefinition const&)
 {
 	if (m_currentFunction && !m_currentFunction->body().statements().empty())
+	{
 		for (auto const& var: m_localVarUseCount)
 			if (var.second == 0)
 			{
@@ -130,9 +131,23 @@ void StaticAnalyzer::endVisit(FunctionDefinition const&)
 				else
 					m_errorReporter.warning(2072_error, var.first.second->location(), "Unused local variable.");
 			}
+
+		if (!m_foundReturn)
+			for (auto const& returnParam: m_currentFunction->returnParameters())
+				if (returnParam->name().empty())
+				{
+					m_errorReporter.warning(
+						6321_error,
+						returnParam->location(),
+						"Unnamed return parameter will never be set."
+					);
+					break;
+				}
+	}
 	m_localVarUseCount.clear();
 	m_constructor = false;
 	m_currentFunction = nullptr;
+	m_foundReturn = false;
 }
 
 bool StaticAnalyzer::visit(Identifier const& _identifier)
@@ -174,6 +189,7 @@ bool StaticAnalyzer::visit(VariableDeclaration const& _variable)
 
 bool StaticAnalyzer::visit(Return const& _return)
 {
+	m_foundReturn = true;
 	// If the return has an expression, it counts as
 	// a "use" of the return parameters.
 	if (m_currentFunction && _return.expression())

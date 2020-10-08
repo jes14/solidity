@@ -93,6 +93,9 @@ private:
 	/// Flag that indicates a constructor.
 	bool m_constructor = false;
 
+	/// Flag indicating that we found a return statement
+	bool m_foundReturn = false;
+
 	/// Current contract.
 	ContractDefinition const* m_currentContract = nullptr;
 };

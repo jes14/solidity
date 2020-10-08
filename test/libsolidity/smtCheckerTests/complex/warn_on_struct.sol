@@ -8,5 +8,6 @@ contract C {
 }
 // ----
 // Warning 2072: (133-143): Unused local variable.
+// Warning 6321: (117-121): Unnamed return parameter will never be set.
 // Warning 8364: (146-147): Assertion checker does not yet implement type type(struct C.A storage pointer)
 // Warning 4639: (146-163): Assertion checker does not yet implement this expression.
