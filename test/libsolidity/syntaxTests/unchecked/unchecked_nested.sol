@@ -8,4 +8,4 @@ contract C {
     }
 }
 // ----
-// ParserError 6933: (57-66): Expected primary expression.
+// SyntaxError 1941: (76-133): "unchecked" blocks cannot be nested.
