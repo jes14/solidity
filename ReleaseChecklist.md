@@ -55,7 +55,7 @@
  - [ ] Wait for the ``~ethereum/ubuntu/ethereum-static`` PPA build to be finished and published for *all platforms*. SERIOUSLY: DO NOT PROCEED EARLIER!!! *After* the static builds are *published*, copy the static package to the ``~ethereum/ubuntu/ethereum`` PPA for the destination series ``Trusty`` and ``Xenial`` while selecting ``Copy existing binaries``.
 
 ### Documentation
- - [ ] Build the new version on https://readthedocs.org/projects/solidity/ (select `latest` on the bottom of the page and click `BUILD`)
+ - [ ] Build the new version on https://readthedocs.org/projects/solidity/ (select `latest` at the bottom of the page and click `BUILD`)
  - [ ] In the admin panel, select `Versions` in the menu and set the default version to the released one.
 
 ### Release solc-js
