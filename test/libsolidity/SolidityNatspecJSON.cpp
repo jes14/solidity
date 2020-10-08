@@ -1748,6 +1748,7 @@ BOOST_AUTO_TEST_CASE(user_explicit_inherit_partial2)
 	checkNatspec(sourceCode, "ERC20", natspec, true);
 	checkNatspec(sourceCode, "Token", natspec2, true);
 }
+
 BOOST_AUTO_TEST_CASE(dev_explicit_inherit_partial)
 {
 	char const *sourceCode = R"(
@@ -2020,6 +2021,49 @@ BOOST_AUTO_TEST_CASE(dev_explicit_inehrit_complex)
 		"Expected:\n" << expectedDocumentation.toStyledString() <<
 		"\n but got:\n" << generatedDocumentation.toStyledString()
 	);
+}
+
+BOOST_AUTO_TEST_CASE(dev_different_return_name)
+{
+	char const *sourceCode = R"(
+		contract A {
+			/// @return y value
+			function g(int x) public pure virtual returns (int y) { return x; }
+		}
+
+		contract B is A {
+			function g(int x) public pure override returns (int z) { return x; }
+		}
+	)";
+
+	char const *natspec = R"ABCDEF({
+		"methods":
+		{
+			"g(int256)":
+			{
+				"returns":
+				{
+					"y": "value"
+				}
+			}
+		}
+	})ABCDEF";
+
+	char const *natspec2 = R"ABCDEF({
+		"methods":
+		{
+			"g(int256)":
+			{
+				"returns":
+				{
+					"_0": "y value"
+				}
+			}
+		}
+	})ABCDEF";
+
+	checkNatspec(sourceCode, "A", natspec, false);
+	checkNatspec(sourceCode, "B", natspec2, false);
 }
 
 }

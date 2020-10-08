@@ -50,7 +50,11 @@ void copyMissingTags(StructurallyDocumentedAnnotation& _target, set<CallableDecl
 
 	for (auto const& [tag, content]: sourceDoc.docTags)
 		if (tag != "inheritdoc" && !existingTags.count(tag))
-			_target.docTags.emplace(tag, content);
+		{
+			DocTag newContent = content;
+			newContent.inherited = true;
+			_target.docTags.emplace(tag, newContent);
+		}
 }
 
 CallableDeclaration const* findBaseCallable(set<CallableDeclaration const*> const& _baseFunctions, int64_t _contractId)

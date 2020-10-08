@@ -178,12 +178,15 @@ Json::Value Natspec::extractReturnParameterDocs(std::multimap<std::string, DocTa
 			string paramName = _functionDef.returnParameters().at(n)->name();
 			string content = i->second.content;
 
-			if (paramName.empty())
+			auto nameEndPos = content.find_first_of(" \t");
+			if (
+				paramName.empty() ||
+				(i->second.inherited && content.substr(0, nameEndPos) != paramName)
+			)
 				paramName = "_" + std::to_string(n);
 			else
 			{
 				//check to make sure the first word of the doc str is the same as the return name
-				auto nameEndPos = content.find_first_of(" \t");
 				solAssert(content.substr(0, nameEndPos) == paramName, "No return param name given: " + paramName);
 				content = content.substr(nameEndPos+1);
 			}

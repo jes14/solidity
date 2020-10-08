@@ -66,6 +66,7 @@ struct DocTag
 {
 	std::string content;	///< The text content of the tag.
 	std::string paramName;	///< Only used for @param, stores the parameter name.
+	bool inherited = false; ///< True if this tag was inherited
 };
 
 struct StructurallyDocumentedAnnotation
